@@ -1,492 +1,307 @@
-# picoLLM Inference Engine
+<p align="center">
+  <img width="400" height="400" alt="Streamora AI" src="https://github.com/user-attachments/assets/02314c23-648e-4532-a004-79c0b6cb2e83" />
+</p>
 
-[![GitHub release](https://img.shields.io/github/release/Picovoice/picollm.svg)](https://github.com/Picovoice/picollm/releases)
-[![GitHub](https://img.shields.io/github/license/Picovoice/picollm)](https://github.com/Picovoice/picollm/)
+<h1 align="center">Streamora AI</h1>
 
-[![Maven Central](https://img.shields.io/maven-central/v/ai.picovoice/picollm-android?label=maven-central%20%5Bandroid%5D)](https://repo1.maven.org/maven2/ai/picovoice/picollm-android/)
-[![npm](https://img.shields.io/npm/v/@picovoice/picollm-web?label=npm%20%5Bweb%5D)](https://www.npmjs.com/package/@picovoice/picollm-web)<!-- markdown-link-check-disable-line -->
-[![CocoaPods](https://img.shields.io/cocoapods/v/picoLLM-iOS)](https://cocoapods.org/pods/picoLLM-iOS)<!-- markdown-link-check-disable-line -->
-[![PyPI](https://img.shields.io/pypi/v/picollm)](https://pypi.org/project/picollm/)
-[![Nuget](https://img.shields.io/nuget/v/picollm)](https://www.nuget.org/packages/PicoLLM/)
+<div align="center">
+  <p><strong>AI-native workspace for stream planning, live optimization, audience insight, and content repurposing</strong></p>
+  <p>
+    Stream analytics • AI agents • Highlights • Automation • Credits powered by $STREAM
+  </p>
+</div>
 
-Made in Vancouver, Canada by [Picovoice](https://picovoice.ai)
+<p align="center">
+  <a href="https://your-web-app-link">
+    <img src="https://img.shields.io/badge/Web%20App-Open-3b82f6?style=for-the-badge&logo=googlechrome&logoColor=white" alt="Web App" />
+  </a>
+  <a href="https://t.me/your_mini_app">
+    <img src="https://img.shields.io/badge/Telegram%20Mini%20App-Launch-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram Mini App" />
+  </a>
+  <a href="https://your-docs-link">
+    <img src="https://img.shields.io/badge/Docs-Read-8b5cf6?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Docs" />
+  </a>
+  <a href="https://x.com/your_account">
+    <img src="https://img.shields.io/badge/X.com-Follow-000000?style=for-the-badge&logo=x&logoColor=white" alt="X.com" />
+  </a>
+  <a href="https://t.me/your_group_or_channel">
+    <img src="https://img.shields.io/badge/Telegram%20Community-Join-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram Community" />
+  </a>
+</p>
 
-[![Twitter URL](https://img.shields.io/twitter/url?label=%40AiPicovoice&style=social&url=https%3A%2F%2Ftwitter.com%2FAiPicovoice)](https://twitter.com/AiPicovoice)<!-- markdown-link-check-disable-line -->
-[![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCAdi9sTCXLosG1XeqDwLx7w?label=YouTube&style=social)](https://www.youtube.com/channel/UCAdi9sTCXLosG1XeqDwLx7w)
+---
 
-picoLLM Inference Engine is a highly accurate and cross-platform SDK optimized for running compressed large language
-models. picoLLM Inference Engine is:
+## What’s Broken
 
-- Accurate; picoLLM Compression improves GPTQ by [significant margins](https://picovoice.ai/blog/picollm-towards-optimal-llm-quantization/)
-- Private; LLM inference runs 100% locally.
-- Cross-Platform
-    - Linux (x86_64), macOS (arm64, x86_64), and Windows (x86_64, arm64)
-    - Raspberry Pi (5 and 4)
-    - Android and iOS
-    - Chrome, Safari, Edge, and Firefox
-- Runs on CPU and GPU
-- Free for open-weight models
+Live content creators usually work across too many disconnected surfaces. Planning happens in notes, stream review happens inside platform dashboards, highlight ideas live in chats or drafts, and performance decisions are often made from memory instead of structured feedback.
 
-## Table of Contents
+That fragmentation slows down iteration. By the time a creator understands what worked, the next stream is already live and the learning loop is gone.
 
-- [picoLLM](#picollm-inference-engine)
-    - [Table of Contents](#table-of-contents)
-    - [Showcases](#showcases)
-      - [Raspberry Pi](#raspberry-pi)
-      - [Android](#android)
-      - [iOS](#ios)
-      - [Cross-Browser Local LLM](#cross-browser-local-llm)
-      - [Llama-3-70B-Instruct on GeForce RTX 4090](#llama-3-70b-instruct-on-geforce-rtx-4090)
-      - [Local LLM-Powered Voice Assistant on Raspberry Pi](#local-llm-powered-voice-assistant-on-raspberry-pi)
-      - [Local Llama-3-8B-Instruct Voice Assistant on CPU](#local-llama-3-8b-instruct-voice-assistant-on-cpu)
-    - [Accuracy](#accuracy)
-    - [Models](#models)
-    - [AccessKey](#accesskey)
-    - [Demos](#demos)
-        - [Python](#python-demos)
-        - [.NET](#net-demos)
-        - [Node.js](#nodejs-demos)
-        - [Android](#android-demos)
-        - [iOS](#ios-demos)
-        - [Web](#web-demos)
-        - [C](#c-demos)
-    - [SDKs](#sdks)
-        - [Python](#python-sdk)
-        - [.NET](#net-sdk)
-        - [Node.js](#nodejs-sdk)
-        - [Android](#android-sdk)
-        - [iOS](#ios-sdk)
-        - [Web](#web-sdk)
-        - [C](#c-sdk)
-    - [Releases](#releases)
+| Broken part of the workflow | What usually happens today | What gets lost |
+|---|---|---|
+| Stream planning | Topics, segments, hooks, and overlays are prepared manually across scattered tools | Time before each stream |
+| Live optimization | Retention drops and chat spikes are noticed too late or not reviewed in context | Engagement and pacing decisions |
+| Post-stream review | Metrics are visible, but the reasoning behind performance is unclear | Repeatable lessons |
+| Repurposing | Clips are chosen by intuition, not by engagement signals | Reach across Shorts, Reels, and TikTok |
+| Team coordination | Notes, analytics, and actions are spread between apps | Consistency and speed |
 
-## Showcases
+> [!WARNING]
+> Most creator tools show data after the fact, but do not help transform that data into a repeatable operating system for the next stream
 
-### Raspberry Pi
+### Current workflow
 
-[![Local LLM on Raspberry Pi](https://img.youtube.com/vi/CeKPXZ_8hkI/0.jpg)](https://www.youtube.com/watch?v=CeKPXZ_8hkI)
+A creator plans a show in one tool, streams on another platform, checks analytics in a dashboard later, and then manually decides what to cut into clips, what to repeat next week, and what to test again. Even when the data exists, it is rarely connected to creative execution.
 
-### Android
+### Where time and money are lost
 
-[![How to Run a Local LLM on Android](https://img.youtube.com/vi/XeUMkue-5lI/0.jpg)](https://www.youtube.com/watch?v=XeUMkue-5lI)
+Time is lost in setup, review, and context switching. Money is lost when strong streams are not replicated, weak intros keep repeating, and good moments are never turned into distributable content.
 
-### iOS
+### Why existing solutions fail
 
-[![How to Run a Local LLM on iOS](https://img.youtube.com/vi/dNK5esdkI0Y/0.jpg)](https://www.youtube.com/watch?v=dNK5esdkI0Y)
+Most tools cover only one slice of the workflow. Analytics tools focus on reporting. AI writing tools generate ideas without stream context. Repurposing tools find clips but do not connect them to audience behavior, agent history, or future planning.
 
-### Cross-Browser Local LLM
+---
 
-[Live Demo — Works offline!](https://picovoice.ai/picollm/)
+## The Shift
 
-### Llama-3-70B-Instruct on GeForce RTX 4090
+Streamora AI replaces scattered creator tooling with one AI-native workspace shared across the Web App, Telegram Mini App, Browser Extension, and API layer.
 
-[![Llama-3-70B-Instruct on GeForce RTX 4090](https://img.youtube.com/vi/4mcVwbOOIqk/0.jpg)](https://www.youtube.com/watch?v=4mcVwbOOIqk)
+Instead of treating planning, analysis, highlights, and automation as separate tasks, Streamora turns them into one loop built on the same workspace, the same context, and the same agent history.
 
-### Local LLM-Powered Voice Assistant on Raspberry Pi
+| Instead of | Streamora AI does |
+|---|---|
+| Reviewing streams manually after they end | Connects analytics, audience signals, and AI summaries in one workspace |
+| Using generic prompts for content ideas | Runs specialized agents with stream data, notes, and performance context |
+| Picking clips by guesswork | Surfaces highlight candidates from engagement and retention signals |
+| Managing separate tools for creation and review | Syncs Web App, Telegram Mini App, Browser Extension, and API into one system |
 
-[![Local LLM-Powered Voice Assistant on Raspberry Pi](https://img.youtube.com/vi/GEndT3RGRvw/0.jpg)](https://www.youtube.com/watch?v=GEndT3RGRvw)
+> [!IMPORTANT]
+> Streamora is not just an analytics dashboard and not just an AI wrapper. It is a creator workflow layer that connects planning, performance, repurposing, and automation
 
-### Local Llama-3-8B-Instruct Voice Assistant on CPU
+---
 
-[![Local Llama-3-8B-Instruct Voice Assistant on CPU](https://img.youtube.com/vi/uV0GlXDFSPw/0.jpg)](https://www.youtube.com/watch?v=uV0GlXDFSPw)
+## Product View
 
-## Accuracy
+Streamora AI is one shared workspace with multiple surfaces around it, but the intelligence sits deeper than a simple hub-and-spoke model.
 
-picoLLM Compression is a novel large language model (LLM) quantization algorithm developed within Picovoice. Given a task-specific cost function, picoLLM Compression automatically learns the optimal bit allocation strategy across and within LLM's weights. Existing techniques require a fixed bit allocation scheme, which is subpar.
+```mermaid
+flowchart TD
+    WA[Web App Console] --> WS[(Unified Workspace)]
+    TG[Telegram Mini App] --> WS
+    EX[Browser Extension] --> WS
+    API[API & Webhooks] --> WS
 
-For example, picoLLM Compression recovers MMLU score degradation of widely adopted GPTQ by 91%, 99%, and 100% at 2, 3,
-and 4-bit settings. The figure below depicts the MMLU comparison between picoLLM and GPTQ for Llama-3-8b [[1]](https://picovoice.ai/blog/picollm-towards-optimal-llm-quantization/).
+    WS --> ID[Identity & Settings]
+    WS --> CM[Connected Channels & Platforms]
+    WS --> SM[Streams • VODs • Clips]
+    WS --> AG[Agent Layer]
+    WS --> AU[Automation Engine]
+    WS --> BL[Billing • Credits • $STREAM]
+    WS --> HS[History • Runs • Saved Outputs]
 
-![picoLLM Compression vs GPTQ MMLU scores when applied to Llama-3-8B](./resources/mmlu-llama-3-8b.svg)
+    SM --> MET[Metrics & Metadata]
+    SM --> RET[Retention Curves]
+    SM --> ENG[Engagement Signals]
+    SM --> CTX[Topic • Format • Schedule Context]
 
-## Models
+    MET --> AG
+    RET --> AG
+    ENG --> AG
+    CTX --> AG
 
-picoLLM Inference Engine supports the following open-weight models. The models are on
-[Picovoice Console](https://console.picovoice.ai/).
+    AG --> PL[Stream Planner]
+    AG --> PA[Post-Stream Analyst]
+    AG --> HI[Highlight Finder]
+    AG --> AI[Audience Insight Agent]
+    AG --> RI[Research & Idea Agent]
 
-- Gemma
-    - `gemma-2b`
-    - `gemma-2b-it`
-    - `gemma-7b`
-    - `gemma-7b-it`
-- Llama-2
-    - `llama-2-7b`
-    - `llama-2-7b-chat`
-    - `llama-2-13b`
-    - `llama-2-13b-chat`
-    - `llama-2-70b`
-    - `llama-2-70b-chat`
-- Llama-3
-    - `llama-3-8b`
-    - `llama-3-8b-instruct`
-    - `llama-3-70b`
-    - `llama-3-70b-instruct`
-- Llama-3.2
-    - `llama3.2-1b-instruct`
-    - `llama3.2-3b-instruct`
-- Mistral
-    - `mistral-7b-v0.1`
-    - `mistral-7b-instruct-v0.1`
-    - `mistral-7b-instruct-v0.2`
-- Mixtral
-    - `mixtral-8x7b-v0.1`
-    - `mixtral-8x7b-instruct-v0.1`
-- Phi-2
-    - `phi2`
-- Phi-3
-    - `phi3`
-- Phi-3.5
-  - `phi3.5`
+    AG --> HS
+    AU --> EV[Event Triggers]
+    AU --> JOB[Scheduled Jobs]
+    AU --> OUT[Telegram • Email • Workspace Delivery]
 
-## AccessKey
-
-AccessKey is your authentication and authorization token for deploying Picovoice SDKs, including picoLLM. Anyone who is using Picovoice needs to have a valid AccessKey. You must keep your AccessKey secret. You would need internet connectivity to validate your AccessKey with Picovoice license servers, even though the LLM inference is running 100% offline.
-
-AccessKey also verifies that your usage is within the limits of your account. You can see your usage limits and real-time usage on your [Picovoice Console](https://console.picovoice.ai/signup) Profile. To continue using Picovoice after your trial or renew and adjust your usage limits, please reach out to our [Enterprise Sales Team](https://picovoice.ai/contact/) or your existing Picovoice contact.
-
-## Demos
-
-### Python Demos
-
-Install the demo package:
-
-```console
-pip3 install picollmdemo
+    BL --> CR[Credit Balance]
+    BL --> PLANS[Plans & Limits]
+    BL --> TOK[$STREAM Utility]
 ```
 
-Run the following in the terminal:
+The result is a single operating layer for creators: one identity, one history, one credit system, and one place where planning inputs and performance outputs stay connected.
 
-```console
-picollm_demo_completion --access_key ${ACCESS_KEY} --model_path ${MODEL_PATH} --prompt ${PROMPT}
+---
+
+## Proof
+
+The value of Streamora becomes obvious when the workflow is viewed before and after the workspace is unified.
+
+| Before Streamora | After Streamora |
+|---|---|
+| Stream plan is drafted manually and rarely reused | Agents generate outlines, segment ideas, and talking points from past context |
+| Performance review is metric-heavy and slow to interpret | AI summaries explain what likely happened and what to change next |
+| Highlights are selected manually after long review sessions | Engagement and retention signals surface strong moments faster |
+| Teams pass notes between apps and chats | Shared workspace keeps runs, outputs, and saved media aligned |
+
+### Real scenario
+
+A creator finishes a 90-minute live session. Instead of exporting notes, opening multiple dashboards, and manually hunting for standout moments, they open Streamora and get a post-stream analysis, a shortlist of highlight candidates, and concrete suggestions for the next session’s intro, pacing, and segment order.
+
+### Impact
+
+| Area | Typical improvement path |
+|---|---|
+| Planning speed | Less manual prep and fewer repeated decisions |
+| Review quality | Faster understanding of why a stream overperformed or underperformed |
+| Repurposing output | More clip candidates tied to real audience behavior |
+| Team coordination | Shared history across agents, streams, and saved outputs |
+
+> [!TIP]
+> The strongest proof is not a flashy metric. It is the ability to turn one finished stream into a better next stream with less friction
+
+---
+
+## Try the Core Flow
+
+The fastest path to an aha moment in Streamora is simple.
+
+| Step | Action | Outcome |
+|---|---|---|
+| 1 | Connect your workspace and content surfaces | Streamora starts building unified context |
+| 2 | Open a recent stream in the Web App | Metrics, retention, and engagement become reviewable in one place |
+| 3 | Run the post-stream agent | You get a readable summary plus recommendations |
+| 4 | Review suggested highlights | Strong moments are easier to repurpose |
+| 5 | Use the planner for the next stream | Past performance directly shapes future structure |
+
+This is where the shift happens: the platform stops being a storage layer for content and becomes an operating layer for decisions.
+
+---
+
+## Real Scenarios
+
+### 1) Solo creator trying to improve retention
+
+A solo creator streams consistently but cannot tell why some sessions hold viewers and others lose them early.
+
+| Context | Before | After |
+|---|---|---|
+| Weekly live show with variable performance | Looks at platform analytics and guesses what changed | Uses retention curves, AI comments, and stream context to identify weak intros and strong segments |
+
+### 2) Small production team running recurring shows
+
+A small team produces recurring streams and wants cleaner planning, review, and handoff between members.
+
+| Context | Before | After |
+|---|---|---|
+| Shared production across multiple people | Notes, tasks, and clip ideas are split across chats and docs | Shared workspace keeps runs, analyses, saved outputs, and automation results in one place |
+
+### 3) Creator repurposing content for short-form platforms
+
+A creator wants to turn long streams into short clips without spending hours reviewing raw footage.
+
+| Context | Before | After |
+|---|---|---|
+| Multi-platform content distribution | Clips are selected by instinct and posted inconsistently | Highlight suggestions are driven by audience reactions, engagement spikes, and stream context |
+
+---
+
+## Mechanics
+
+Under the hood, Streamora keeps the workflow light for the user even though several systems work together in the background.
+
+```mermaid
+flowchart LR
+    A[Connected stream or video] --> B[Workspace ingestion]
+    B --> C[Metrics & metadata normalization]
+    C --> D[Analytics layer]
+    D --> E[Agent execution]
+    E --> F[Recommendations, summaries, and highlights]
+    F --> G[Saved history]
+    F --> H[Automation outputs]
+    H --> I[Web App]
+    H --> J[Telegram]
+    H --> K[Email or external tools]
 ```
 
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` with the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` with a prompt string.
+The platform does not ask the user to engineer every prompt from scratch. It turns streams, notes, metrics, and context into structured inputs that specialized agents can actually use.
 
-For more information about Python demos go to [demo/python](demo/python/README.md).
+> [!NOTE]
+> Credits are consumed by AI-powered actions such as analyses, generations, and agent runs, while $STREAM is the utility token used for subscriptions, top-ups, and broader ecosystem mechanics
 
-### .NET Demos
+---
 
-From [demo/dotnet/PicoLLMDemo](demo/dotnet/PicoLLMDemo) build and run the demo:
+## Surfaces at a Glance
 
-```console
-dotnet build -c CompletionDemo.Release
-dotnet run -c CompletionDemo.Release -- --access_key ${ACCESS_KEY} --model_path ${MODEL_PATH} --prompt ${PROMPT}
-```
+| Surface | Primary role | Best used for |
+|---|---|---|
+| Web App | Main workspace | Setup, analytics, planning, billing, and history |
+| Telegram Mini App | Fast access surface | Notifications, quick checks, lightweight follow-ups |
+| Browser Extension | In-context utility | Analyze pages, save content, and trigger actions without leaving the browser |
+| API & Webhooks | Programmatic layer | Integrations, automations, internal tools, and external workflows |
 
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` with the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` with a prompt string.
+---
 
-For more information about .NET demos go to [demo/dotnet](demo/dotnet).
+## vs Alternatives
 
-### Node.js Demos
+| Option | Difference |
+|---|---|
+| Generic AI writing tools | Good at generating text, weak at using real stream metrics and workspace history |
+| Native platform dashboards | Good at showing raw numbers, weak at connecting them to planning and repurposing |
+| Manual workflow | Flexible, but slow, fragmented, and difficult to scale or repeat consistently |
 
-Install the demo package:
+The positioning is simple: Streamora is not trying to replace every creator tool. It is trying to unify the parts that creators keep repeating across every stream cycle.
 
-```console
-yarn global add @picovoice/picollm-node-demo
-```
+---
 
-Run the following in the terminal:
+## Failure Modes
 
-```console
-picollm-completion-demo --access_key ${ACCESS_KEY} --model_path ${MODEL_PATH} --prompt ${PROMPT}
-```
+Credibility matters more when a product clearly states where it is not the right fit.
 
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` with the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` with a prompt string.
+| Situation | Why Streamora may not be the best fit |
+|---|---|
+| Very low publishing volume | If you stream rarely, the full workflow layer may be more than you need |
+| Purely manual creative process | Some creators prefer intuition over structured review and iteration |
+| No need for cross-surface coordination | If you do not need analytics, agents, repurposing, or automation together, lighter tools may be enough |
+| Minimal operational complexity | For simple one-off content, old methods can still be faster |
 
-For more information about Node.js demos go to [Node.js demo](./demo/nodejs).
+> [!CAUTION]
+> Streamora helps most when there is enough content volume, enough repetition, or enough team coordination for workflow compounding to matter
 
-### Android Demos
+---
 
-Using Android Studio, open the [Completion demo](demo/android/Completion) as an Android project, copy your AccessKey into MainActivity.java, and run the application.
+## Security, Privacy, and Trust
 
-To learn about how to use picoLLM in a chat application, try out the [Chat demo](demo/android/Chat).
+Trust is not a footer section. It is part of the product logic.
 
-For more information about Android demos go to [demo/android](demo/android/README.md).
+| Area | Streamora approach |
+|---|---|
+| Account protection | Workspace-based identity with controlled access and account-level protections where available |
+| Sensitive data | Hardened storage for secrets and API keys, with least-privilege access patterns |
+| Wallet safety | No seed phrase or private key collection or storage |
+| Data isolation | Logical separation between workspaces |
+| Privacy | No sale of personal data and no external third-party model training on private user content outside service delivery and improvement scope |
 
-### iOS Demos
+---
 
-To run the completion demo, go to [demo/ios/Completion](demo/ios/Completion) and run:
+## API and Automation
 
-```console
-pod install
-```
+For teams, studios, and advanced users, Streamora can also work as an automation layer.
 
-Replace `let ACCESS_KEY = "${YOUR_ACCESS_KEY_HERE}"` in the file [VieModel.swift](demo/ios/Completion/PicoLLMCompletionDemo/ViewModel.swift) with your AccessKey obtained from [Picovoice Console](https://console.picovoice.ai/).
+| Capability | Example |
+|---|---|
+| Agent execution | Run a post-stream analyst asynchronously and fetch results by job ID |
+| Analytics access | Pull stream metrics, retention, and engagement into internal workflows |
+| Webhooks | Receive events such as `job.completed`, `credits.low`, or `plan.changed` |
+| Integrations | Route outputs to Telegram, email, task systems, or internal reporting stacks |
 
-Then, using [Xcode](https://developer.apple.com/xcode/), open the generated `PicoLLMCompletionDemo.xcworkspace` and run the application.
+This makes Streamora usable both as a product interface and as a programmable backend for creator operations.
 
-To learn about how to use picoLLM in a chat application, try out the [Chat demo](demo/ios/Chat).
+---
 
-For more information about iOS demos go to [demo/ios](demo/ios/README.md).
+## Why Streamora
 
-### Web Demos
+Streamora AI is built for creators who do not just want more dashboards, more prompts, or more scattered tools. It is for people who want one system that helps them plan better, stream smarter, review faster, and repurpose with context.
 
-From [demo/web](demo/web) run the following in the terminal:
+Pain creates the need  
+The shift creates the model  
+Proof creates belief  
+Trust makes the system usable
 
-```console
-yarn
-yarn start
-```
-
-(or)
-
-```console
-npm install
-npm run start
-```
-
-Open `http://localhost:5000` in your browser to try the demo.
-
-### C Demos
-
-Build the demo:
-
-```console
-cmake -S demo/c/ -B demo/c/build && cmake --build demo/c/build
-```
-
-Run the demo:
-
-```console
-./demo/c/build/picollm_demo_completion -a ${ACCESS_KEY} -l ${LIBRARY_PATH} -m ${MODEL_FILE_PATH} -p ${PROMPT}
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${LIBRARY_PATH}` with the path to the shared
-library file located in the [lib](lib) directory, `${MODEL_FILE_PATH}` with the path to a model file downloaded from
-Picovoice Console, and `${PROMPT}` with a prompt string.
-
-For more information about C demos go to [demo/c](demo/c/README.md).
-
-## SDKs
-
-### Python SDK
-
-Install the Python SDK:
-
-```console
-pip3 install picollm
-```
-
-Create an instance of the engine and generate a prompt completion:
-
-```python
-import picollm
-
-pllm = picollm.create(
-    access_key='${ACCESS_KEY}',
-    model_path='${MODEL_PATH}')
-
-res = pllm.generate('${PROMPT}')
-print(res.completion)
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string. Finally, when done be sure to explicitly release
-the resources using `pllm.release()`.
-
-### .NET SDK
-
-Install the .NET SDK using NuGet or the dotnet CLI:
-
-```console
-dotnet add package PicoLLM
-```
-
-Create an instance of the engine and generate a prompt completion:
-
-```csharp
-using Pv;
-
-PicoLLM pllm = PicoLLM.Create("${ACCESS_KEY}", "${MODEL_PATH}");
-
-PicoLLMCompletion res = pllm.Generate('${PROMPT}');
-Console.WriteLine(res.Completion);
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string.
-
-`PicoLLM` will have its resources freed by the garbage collector, but to have resources freed immediately after use,
-wrap it in a using statement or call `.Dispose()` directly:
-
-```csharp
-using(PicoLLM pllm = PicoLLM.Create(accessKey, modelPath))
-{
-    // .. picoLLM usage here
-}
-```
-
-### Node.js SDK
-
-Install the Node.js SDK:
-
-```console
-yarn add @picovoice/picollm-node
-```
-
-Create instances of the picoLLM class:
-
-```javascript
-const { PicoLLM } = require("@picovoice/picollm-node");
-const pllm = new PicoLLM('${ACCESS_KEY}', '${MODEL_PATH}');
-
-const res = await pllm.generate('${PROMPT}');
-console.log(res.completion);
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string. Finally, when done be sure to explicitly release
-the resources using `pllm.release()`.
-
-### Android SDK
-
-Create an instance of the inference engine and generate a prompt completion:
-
-```java
-import ai.picovoice.picollm.*;
-
-try {
-    PicoLLM picollm = new PicoLLM.Builder()
-        .setAccessKey("${ACCESS_KEY}")
-        .setModelPath("${MODEL_PATH}")
-        .build();
-    PicoLLMCompletion res = picollm.generate(
-        "${PROMPT}",
-        new PicoLLMGenerateParams.Builder().build());
-} catch (PicoLLMException e) { }
-```
-
-Replace `${ACCESS_KEY}` with your `AccessKey` from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string. Finally, when done be sure to explicitly release
-the resources using `picollm.delete()`.
-
-### iOS SDK
-
-Create an instance of the engine and generate a prompt completion:
-
-```swift
-import PicoLLM
-
-let pllm = try PicoLLM(
-    accessKey: "${ACCESS_KEY}",
-    modelPath: "${MODEL_PATH}")
-
-let res = pllm.generate(prompt: "${PROMPT}")
-print(res.completion)
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string.
-
-### Web SDK
-
-Install the web SDK using yarn:
-
-```console
-yarn add @picovoice/picollm-web
-```
-
-or using npm:
-
-```console
-npm install --save @picovoice/picollm-web
-```
-
-Create an instance of the engine using `PicoLLMWorker` and transcribe an audio file:
-
-```typescript
-import { PicoLLMWorker } from "@picovoice/picollm-web";
-
-const picoLLMModel = {
-  modelFile: '${MODEL_FILE}'
-}
-
-const picoLLM = await PicoLLMWorker.create(
-  "${ACCESS_KEY}",
-  picoLLMModel
-);
-
-const res = await picoLLM.generate(`${PROMPT}`);
-console.log(res.completion);
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from [Picovoice Console](https://console.picovoice.ai/), `${MODEL_FILE}` with the contents of the model file as `File`, `Blob` or `URL (path to model file)` format and `${PROMPT}` with a prompt string. Finally, when done release the resources using `picoLLM.release()`.
-
-### C SDK
-
-Create an instance of the engine and generate a prompt completion:
-
-```c
-pv_picollm_t *pllm = NULL;
-pv_picollm_init(
-    "${ACCESS_KEY}",
-    "${MODEL_PATH}",
-    "best",
-    &pllm);
-
-pv_picollm_usage_t usage;
-pv_picollm_endpoint_t endpoint;
-int32_t num_completion_tokens;
-pv_picollm_completion_token_t *completion_tokens;
-char *output;
-pv_picollm_generate(
-    pllm,
-    "${PROMPT}",
-    -1,    // completion_token_limit
-    NULL,  // stop_phrases
-    0,     // num_stop_phrases
-    -1,    // seed
-    0.f,   // presence_penalty
-    0.f,   // frequency_penalty
-    0.f,   // temperature
-    1.f,   // top_p
-    0,     // num_top_choices
-    NULL,  // stream_callback
-    NULL,  // stream_callback_context
-    &usage,
-    &endpoint,
-    &completion_tokens,
-    &num_completion_tokens,
-    &output);
-printf("%s\n", output);
-```
-
-Replace `${ACCESS_KEY}` with yours obtained from Picovoice Console, `${MODEL_PATH}` to the path to a model file
-downloaded from Picovoice Console, and `${PROMPT}` to a prompt string.
-
-Finally, when done, be sure to release the resources explicitly:
-
-```c
-pv_picollm_delete(pllm);
-```
-
-## Releases
-
-### v2.0.0 - December 18, 2025
-
-- Improved engine performance
-- Improved support for running on GPU or multiple CPU cores
-
-### v1.3.0 - March 14th, 2025
-
-- Performance improvements
-- Significant performance improvements for iOS and Web
-
-### v1.2.0 - November 26th, 2024
-
-- Performance improvements
-- Added support for phi3.5
-
-### v1.1.0 - October 1st, 2024
-
-- Added `interrupt()` function for halting completion generation early
-- Performance improvements
-- Added support for phi3
-- Bug fixes
-
-### v1.0.0 - May 28th, 2024
-
-- Initial release
+That is the logic behind Streamora AI
