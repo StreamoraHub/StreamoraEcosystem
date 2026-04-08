@@ -1,0 +1,26 @@
+{
+  "projectName": "LabCore",
+  "environment": "development",
+
+  "logging": {
+    "level": "debug",
+    "destinations": ["console", "file", "remote"],
+    "filePath": "./logs/labcore.log",
+    "maxSizeMb": 20,
+    "rotation": true
+  },
+  "features": {
+    "enableDiagnostics": true,
+    "enableRealTimeAlerts": false,
+    "enableMetrics": true,
+    "enableCache": true
+  },
+  "security": {
+    "sanitizeInputs": true,
+    "rateLimit": 100
+  },
+  "monitoring": {
+    "healthEndpoint": "/health",
+    "uptimeChecks": true
+  }
+}
